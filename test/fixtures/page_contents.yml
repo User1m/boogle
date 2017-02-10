@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  page_id: 1
+  content: elementary, my dear watson
+
+two:
+  page_id: 2
+  content: hellow world, my dear watson

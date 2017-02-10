@@ -8,5 +8,10 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
-  # Add more helper methods to be used by all tests here...
+  def post_to_index
+    post index_path, params: {
+      page_id: 10,
+      content: "Elementary, my dear Watson"
+    }
+  end
 end
