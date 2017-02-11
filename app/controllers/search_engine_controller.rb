@@ -1,4 +1,5 @@
 include SearchEngineHelper
+require 'set'
 
 class SearchEngineController < ApplicationController
   before_action :indexing_params, only: [:index]
@@ -10,16 +11,42 @@ class SearchEngineController < ApplicationController
 
   def search
     matches = []
+    results = Set.new
     if !searching_params[:query].blank? 
-      results = PageContent.where("content like ?", "%#{searching_params[:query]}%")
-      results.each do |result| 
-        matches.push({page_id: result[:page_id], score: 0})
-      end
+      query_strings = strip_downcase_and_remove_punctuation(searching_params[:query]).split
+      fetch_results_for_query_strings(query_strings, results)
+      calc_score_for_matches(query_strings, results, matches)
     end
-    render json: { matches: matches }, status: (searching_params.empty? ? 404 : :ok)
+    render json: { matches: matches.sort_by {|m| m[:score]}.reverse! }, status: (searching_params.empty? ? 404 : :ok) 
   end
 
   private
+
+  def fetch_results_for_query_strings(query_strings, results)
+    query_strings.each do |q|
+      matches = get_matches(q).to_a
+      matches.each do |m| 
+        results.add?(m)
+      end
+    end
+  end
+
+  def get_matches(str)
+    PageContent.where("content like ? OR content like ? OR content like ?", "% #{str} %", "% #{str}", "#{str} %")
+  end
+
+  def calc_score_for_matches(query_strings, results, matches = [])
+    results.each do |result|
+      score = 0
+      query_strings.each do |str|
+        if result[:content].match(/#{str}/i)
+          score += 1
+        end
+      end
+      matches.push({ pageId: result[:page_id], score: score })
+    end
+  end
+
   def indexing_params
     params.permit(:page_id, :content)
   end

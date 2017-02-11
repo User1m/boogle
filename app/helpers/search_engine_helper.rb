@@ -4,7 +4,7 @@ module SearchEngineHelper
   end
 
   def save_page_content(params)
-    page = PageContent.new(page_id: params[:page_id], content: params[:content])
+    page = PageContent.new(page_id: params[:page_id], content: strip_downcase_and_remove_punctuation(params[:content]))
     page.save
   end
 
@@ -12,7 +12,8 @@ module SearchEngineHelper
   #   URI::escape(query.downcase)
   # end 
 
-  def remove_punctuation(string)
-    string.gsub(/\W/, ' ')
+  def strip_downcase_and_remove_punctuation(string)
+    string ? string.downcase.gsub(/\W/, ' ').strip : nil
   end
+  
 end

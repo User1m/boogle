@@ -189,7 +189,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  assert_json
+  assert_json (= 0.4.1)
   byebug
   coffee-rails (~> 4.2)
   guard (= 2.13.0)

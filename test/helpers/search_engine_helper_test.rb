@@ -11,10 +11,10 @@ class SearchEngineHelperTest < ActionView::TestCase
     assert save_page_content({page_id: 200, content: "hi"})
   end
 
-  test 'remove_punctuation removes all non-alphanumeric chars' do
+  test 'strip_downcase_and_remove_punctuation removes all non-alphanumeric chars' do
     str = "Elementary, my dear Watson!"
-    result = remove_punctuation(str)
-    assert_equal str.gsub(/\W/, ' '), result
+    result = strip_downcase_and_remove_punctuation(str)
+    assert_equal str.downcase.gsub(/\W/, ' ').strip, result
   end
 
 end
