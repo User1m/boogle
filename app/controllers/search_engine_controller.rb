@@ -13,12 +13,13 @@ class SearchEngineController < ApplicationController
   def search
     matches = []
     results = Set.new
-    if !searching_params[:query].blank? 
-      query_strings = strip_downcase_and_remove_punctuation(searching_params[:query]).split
+    if !searching_params[:query].blank?
+      query = strip_downcase_and_remove_punctuation(searching_params[:query])
+      query_strings = query.split
       fetch_results_for_query_strings(query_strings, results)
       calc_score_for_matches(query_strings, results, matches)
     end
-    render json: { query: searching_params[:query] , matches: matches.sort_by {|m| m[:score]}.reverse! }, status: (searching_params.empty? ? 404 : :ok) 
+    render json: { query: query, matches: matches.sort_by {|m| m[:score]}.reverse! }, status: (searching_params.empty? ? 404 : :ok) 
   end
 
   private
