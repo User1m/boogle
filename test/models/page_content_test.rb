@@ -24,11 +24,11 @@ class PageContentTest < ActiveSupport::TestCase
     assert_not @page.valid?
   end
 
-  test 'content is downcased and padded before save' do
+  test 'content is padded before save' do
     content = "Elementary, my dear Watson"
     @page.content = content
     @page.save
-    assert_equal " #{content.downcase} ", @page.content
+    assert_equal " #{content} ", @page.content
   end
 
 end
