@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170209174802) do
+ActiveRecord::Schema.define(version: 20170212005822) do
 
   create_table "page_contents", force: :cascade do |t|
     t.integer  "page_id"
-    t.string   "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text     "content",                 collation: "NOCASE"
+    t.index ["content"], name: "content_nocase"
   end
 
 end

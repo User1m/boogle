@@ -4,6 +4,7 @@ require 'set'
 class SearchEngineController < ApplicationController
   before_action :indexing_params, only: [:index]
   before_action :searching_params, only: [:search]
+  skip_before_action :verify_authenticity_token, only: [:index]
 
   def index
     head (save_page_content(indexing_params) ? :no_content : 400), content_type: "application/json"
@@ -32,7 +33,7 @@ class SearchEngineController < ApplicationController
   end
 
   def get_matches(str)
-    PageContent.where("content like ? ", "% #{str} %")
+    DbTextSearch::FullText.new(PageContent, :content).search(" #{str} ")
   end
 
   def calc_score_for_matches(query_strings, results, matches = [])

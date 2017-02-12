@@ -4,7 +4,8 @@ module SearchEngineHelper
   end
 
   def save_page_content(params)
-    page = PageContent.new(page_id: params[:page_id], content:strip_downcase_and_remove_punctuation(params[:content]))
+    content = strip_downcase_and_remove_punctuation(params[:content])
+    page = PageContent.new(page_id: params[:page_id], content: content)
     page.save
   end
 

@@ -14,7 +14,6 @@ gem 'coffee-rails',            '~> 4.2'
 gem 'faker'
 gem 'db_text_search',          '~> 0.2.1'
 
-
 gem 'jquery-rails'
 gem 'turbolinks',              '~> 5'
 gem 'jbuilder',                '~> 2.5'
