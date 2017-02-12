@@ -4,6 +4,7 @@ require 'set'
 class SearchEngineController < ApplicationController
   before_action :indexing_params, only: [:index]
   before_action :searching_params, only: [:search]
+  skip_before_action :verify_authenticity_token, only: [:index]
 
   def index
     head (save_page_content(indexing_params) ? :no_content : 400), content_type: "application/json"
