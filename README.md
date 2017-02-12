@@ -10,4 +10,4 @@
 
 * open browser and go to localhost:3000
 
-* test by hitting the search endpoint
+* test by hitting the /search?query= endpoint
