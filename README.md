@@ -6,6 +6,8 @@
 
 * run `rake db:setup`
 
+* run `rails t` to run tests
+
 * run `rails s`
 
 * open browser and go to localhost:3000
