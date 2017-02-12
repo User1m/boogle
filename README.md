@@ -5,20 +5,14 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Pull this repo
 
-* System dependencies
+* run 'bundle install'
 
-* Configuration
+* run 'rake db:setup'
 
-* Database creation
+* run 'rails s'
 
-* Database initialization
+* open browser and go to localhost:3000
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* test by hitting the search endpoint
