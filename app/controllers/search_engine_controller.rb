@@ -17,7 +17,7 @@ class SearchEngineController < ApplicationController
       fetch_results_for_query_strings(query_strings, results)
       calc_score_for_matches(query_strings, results, matches)
     end
-    render json: { matches: matches.sort_by {|m| m[:score]}.reverse! }, status: (searching_params.empty? ? 404 : :ok) 
+    render json: { query: searching_params[:query] , matches: matches.sort_by {|m| m[:score]}.reverse! }, status: (searching_params.empty? ? 404 : :ok) 
   end
 
   private
@@ -32,18 +32,18 @@ class SearchEngineController < ApplicationController
   end
 
   def get_matches(str)
-    PageContent.where("content like ? OR content like ? OR content like ?", "% #{str} %", "% #{str}", "#{str} %")
+    PageContent.where("content like ? ", "% #{str} %")
   end
 
   def calc_score_for_matches(query_strings, results, matches = [])
     results.each do |result|
       score = 0
       query_strings.each do |str|
-        if result[:content].match(/#{str}/i)
+        if result[:content].match(/\b#{str}\b/i)
           score += 1
         end
       end
-      matches.push({ pageId: result[:page_id], score: score })
+      matches.push({ pageId: result[:page_id], score: score, content:result[:content] })
     end
   end
 

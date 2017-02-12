@@ -2,20 +2,20 @@
 
 one:
   page_id: 1
-  content: elementary my dear watson
+  content: " elementary my dear watson "
 
 two:
   page_id: 2
-  content: hello world my dear watson
+  content: " hello world my dear watson " 
 
 three:
   page_id: 300
-  content: "the quick brown fox jumped over the lazy dog"
+  content: " the quick brown fox jumped over the lazy dog "
 
 four:
   page_id: 100
-  content: "i said hello to a horse"
+  content: " i said hello to a horse "
 
 five:
   page_id: 101
-  content: "hello to their world"
+  content: " hello to their world "
